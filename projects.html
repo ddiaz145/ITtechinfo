@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projects</title>
+  <title>Help Desk Portfolio</title>
   <style>
-    /* Enhanced CSS for visual depth and readability */
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,6 +14,7 @@
       color: #f0f0f0;
       text-shadow: 0 0 3px rgba(0,0,0,0.7);
     }
+
     .site-title {
       margin: 0;
       padding: 40px 0 20px;
@@ -25,6 +25,7 @@
       background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
+
     nav {
       background: rgba(15,32,39,0.95);
       padding: 12px 0;
@@ -34,6 +35,7 @@
       z-index: 1000;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
+
     nav a {
       color: #99f2c8;
       margin: 0 25px;
@@ -42,40 +44,17 @@
       font-size: 18px;
       transition: color 0.3s;
     }
+
     nav a:hover {
       color: #d1ffd6;
       text-decoration: underline;
     }
-    .dropdown {
-      display: inline-block;
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: rgba(15,32,39,0.95);
-      border-radius: 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-      left: 0; top: 100%;
-    }
-    .dropdown-content a {
-      display: block;
-      color: #99f2c8;
-      padding: 12px 20px;
-      font-weight: 600;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .dropdown-content a:hover {
-      background-color: #317f69;
-      color: #e0f7f4;
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
+
     section {
       text-align: center;
       padding: 50px 20px;
     }
+
     h2 {
       font-size: 2.4em;
       font-weight: 900;
@@ -84,6 +63,7 @@
       margin-bottom: 20px;
       position: relative;
     }
+
     h2::after {
       content: "";
       display: block;
@@ -94,49 +74,65 @@
       border-radius: 2px;
       box-shadow: 0 0 8px #00b386;
     }
+
     .carousel-container {
       position: relative;
-      max-width: 700px;
+      max-width: 1000px;
       margin: 30px auto;
       background: rgba(0,0,0,0.4);
       border-radius: 8px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      overflow: hidden;
     }
-    .carousel-slide {
-      display: none;
-      text-align: center;
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
     }
-    .carousel-slide.active {
-      display: block;
+
+    .carousel-card {
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 0 10px;
+      min-width: 300px;
+      max-width: 300px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-    .carousel-slide h3 {
-      margin-top: 0;
+
+    .carousel-card h3 {
       color: #00cc77;
-      text-shadow: 0 0 6px #00cc77;
+      margin-top: 0;
     }
-    .carousel-slide p {
-      color: #e3f6f5;
+
+    .carousel-card p {
+      font-size: 1em;
       line-height: 1.6;
-      font-size: 1.1em;
+      color: #e0f7f4;
     }
+
     .pdf-link {
-      margin-top: 15px;
       display: inline-block;
+      margin-top: 12px;
       color: #99f2c8;
       font-weight: bold;
       text-decoration: none;
       transition: color 0.3s;
     }
+
     .pdf-link:hover {
       color: #d1ffd6;
       text-decoration: underline;
     }
+
     .carousel-buttons {
       display: flex;
       justify-content: space-between;
-      margin-top: 15px;
+      margin-top: 20px;
     }
+
     .carousel-buttons button {
       background-color: #000;
       color: #fff;
@@ -146,211 +142,93 @@
       border-radius: 4px;
       transition: background-color 0.3s;
     }
+
     .carousel-buttons button:hover {
       background-color: #444;
+    }
+
+    @media (max-width: 950px) {
+      .carousel-card {
+        min-width: 90%;
+        margin: 0 auto 20px;
+      }
+      .carousel-track {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <header><h1 class="site-title">David Diaz – Projects</h1></header>
+
+  <header>
+    <h1 class="site-title">David Diaz – Help Desk Projects</h1>
+  </header>
+
   <nav>
-    <a href="#bio">About Me</a>
+    <a href="index.html#bio">About Me</a>
     <a href="projects.html">Projects</a>
   </nav>
 
-  <!-- ExpGateway -->
-  <section id="expGateway">
-    <h2>ExpGateway Internship</h2>
-    <div class="carousel-container" data-carousel>
-      <div class="carousel-slide active">
-        <h3>End-to-End Small Office Network Design</h3>
-        <p>Designed and documented a secure, scalable network infrastructure for a 25–30 person company across Engineering, NetOps, and SecOps. The solution included VLAN and IP addressing plans, device configs, ACLs, and a network diagram to support segmented traffic, remote access, and business-aligned connectivity.</p>
-        <a href="End-to-End%20Small%20Office%20Network%20Design.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-        <div class="carousel-slide">
-        <h3>Logging Protocols Comparisons</h3>
-        <p>Compare and contrast Syslog, Rsyslog, and Fluentd, focusing on their features, performance, and use cases. I evaluated the strengths and weaknesses of each tool to determine which one is best suited for modern log management. My goal is to select the most effective solution based on scalability, flexibility, and integration capabilities.</p>
-        <a href="logging_protocols_comparison.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-        <div class="carousel-slide">
-        <h3>Pi-Services-Research</h3>
-        <p>Research various network services that can be implemented on Raspberry Pi devices to enhance network performance, security, and management. I explored tools such as NetBeez, Suricata, OpenWRT, and Pi-hole, highlighting their purposes and the roles they play in maintaining efficient and secure networks. My objective was to understand their importance and determine which services are most beneficial for different networking scenarios.</p>
-        <a href="Pi-Services-Research.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-        <div class="carousel-slide">
-        <h3>Multi-Vendor CLI Cheat Sheet</h3>
-        <p>Creating a vendor-neutral cheat sheet of commonly used networking commands that apply across different platforms such as Cisco, Juniper, and others. My goal was to identify and compile equivalent commands that help streamline network configuration and troubleshooting regardless of the device vendor. The goal of this cheat sheet to support efficient network management in multi-vendor environments.</p>
-        <a href="Multi-Vendor-CLI-Cheat-Sheet-David-Diaz.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-        <div class="carousel-slide">
-        <h3>Network Segmentation</h3>
-        <p>Explored the importance of network segmentation and how it enhances security, performance, and management in real-world scenarios. I discussed techniques such as using VLANs and subnets, separating internal and external Wi-Fi networks, and implementing sandboxing to contain sensitive systems. My goal was to understand when and why network segmentation is used in environments that require strict access control and traffic management.</p>
-        <a href="Network-Segementation.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-slide">
-        <h3>Switch Interface Troubleshooting Guide</h3>
-        <p>An easy to understand troubleshooting guide of the most common interface statuses. Creating this guide proves my ability to take a technical topic and break it down in easy to digest bites for an individual with no prior knowledge of the technicality.</p>
-        <a href="Switch-Troubleshooting-Guide.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-        <div class="carousel-buttons">
-        <button class="prev">← Prev</button>
-        <button class="next">Next →</button>
-      </div>
-    </div>
-  </section>
-  <!-- Kali Linux -->
-  <section id="kali">
-    <h2>Kali Linux</h2>
-    <div class="carousel-container" data-carousel>
-      <div class="carousel-slide active">
-        <h3>Man-in-the-Midldle Attack</h3>
-        <p>This lab demonstrates a DHCP starvation attack using Yersinia, followed by the deployment of a rogue DHCP server to intercept client traffic. By exhausting the IP address pool of the legitimate DHCP server and assigning malicious configurations, I gain control over network communications.</p>
-         <a href="Man-in-the-Middle.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-slide">
-        <h3>CDP Flood Attack</h3>
-        <p>In this Kali Linux lab, I used Yersinia to launch a CDP flood attack, monitored the resulting traffic with a SPAN port and Wireshark, and observed performance impacts using LibreNMS. The lab demonstrates how multiple tools can work together to detect, analyze, and respond to network-based threats.</p>
-        <a href="CDP%20Flood%20Attack.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-slide">
-        <h3>You Poisoned my ARP</h3>
-        <p>In this at-home lab, Ettercap was used to perform an ARP poisoning attack to demonstrate how ARP spoofing enables man-in-the-middle attacks on a local network. To mitigate this threat, DHCP snooping and Dynamic ARP Inspection (DAI) were configured on the switch to verify and block malicious ARP traffic.</p>
-        <a href="You%20Poisoned%20my%20ARP.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-slide">
-        <h3>VLAN Hijacking</h3>
-        <p>In this lab, I used the Yersinia tool to exploit default switch settings by enabling DTP, allowing my Kali Linux machine to form a trunk link. This demonstrated how attackers can access unauthorized VLAN traffic through weak or default network configurations.</p>
-        <a href="VLAN%20Hijacking.pdf" target="_blank" class="pdf-link">View Project PDF</a>
+  <section id="helpdesk">
+    <h2>Help Desk Projects</h2>
+    <div class="carousel-container">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-card">
+          <h3>Ticketing System Mock-Up</h3>
+          <p>Created a simulated ticketing system workflow using Excel to mirror Help Desk operations. This included ticket categories, status updates, escalation procedures, and resolution timelines.</p>
+          <a href="Ticketing-System.pdf" target="_blank" class="pdf-link">View PDF</a>
+        </div>
+        <div class="carousel-card">
+          <h3>Windows User Account Troubleshooting</h3>
+          <p>Documented step-by-step resolution procedures for common Windows 10 user profile issues including temporary profiles, permission errors, and account recovery.</p>
+          <a href="Windows-Troubleshooting.pdf" target="_blank" class="pdf-link">View PDF</a>
+        </div>
+        <div class="carousel-card">
+          <h3>Active Directory Lab</h3>
+          <p>Built a virtual environment using VirtualBox to simulate a Windows Server domain with user/group management, OU structure, and GPO configuration to reflect Help Desk duties.</p>
+          <a href="AD-Lab.pdf" target="_blank" class="pdf-link">View PDF</a>
+        </div>
       </div>
       <div class="carousel-buttons">
-        <button class="prev">← Prev</button>
-        <button class="next">Next →</button>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Raspberry Pi -->
-   <section id="raspberryPi">
-    <h2>Raspberry Pi</h2>
-    <div class="carousel-container" data-carousel>
-      <div class="carousel-slide active">
-        <h3>We Have Pi at Home</h3>
-        <p>Configure a Raspberry Pi 4 to run Pi-hole as a network-wide DNS filter. This included installing Pi-hole, setting it to handle DNS requests, and updating router settings so all devices on the network use the Raspberry Pi for DNS, effectively blocking ads and tracking domains.</p>
-        <a href="We%20Have%20Pi%20at%20Home.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-slide">
-        <h3>Share-a-Samba</h3>
-        <p>This project implemented a centralized file-sharing solution across home devices using a Samba server on a local Linux machine. It enabled secure, cross-platform access to shared directories from Windows and macOS devices, improving organization and accessibility without relying on cloud services. User authentication and permissions were configured to ensure security and control.</p>
-        <a href="Share-a-Samba.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-slide">
-        <h3>WireGuard</h3>
-        <p>The project involved setting up a secure, lightweight VPN using WireGuard by installing it on both server and client machines, configuring key pairs and connection settings, adjusting firewall and routing rules, and successfully establishing a fast, secure connection over the internet.</p>
-        <a href="WireGuard.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-slide">
-        <h3>Grafana</h3>
-        <p>Set up and configure Grafana on a Raspberry Pi for real-time monitoring of system performance, external domains (e.g., GitHub.com), and basic router info. Use Prometheus and Blackbox Exporter as data sources, and create Grafana dashboards for visualization.</p>
-        <a href="Grafana.pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-buttons">
-        <button class="prev">← Prev</button>
-        <button class="next">Next →</button>
+        <button id="prevBtn">← Prev</button>
+        <button id="nextBtn">Next →</button>
       </div>
     </div>
   </section>
 
-
-  <!-- At Home Labs -->
-  <section id="athome">
-    <h2>At Home Labs</h2>
-    <div class="carousel-container" data-carousel>
-      <div class="carousel-slide active">
-          <h3>HSRP-STP</h3>
-        <p>The objective of this virtual lab was to ensure accurate time synchronization across the network. Consistent timekeeping is crucial for accurate logging and effective troubleshooting, especially when analyzing events between multiple devices. Without synchronized clocks, correlating syslog entries or identifying the timing of incidents becomes unreliable and difficult.</p>
-        <a href="HSRP-STP%20(a).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-slide">
-       <h3>DHCP</h3>
-        <p>The objective of this at-home lab was to configure Router-A as a DHCP server and Router-B as a DHCP relay agent. DHCP was set up for the 192.168.2.0/24 network, excluding 192.168.2.254 to reserve it as the default gateway. A point-to-point link between the routers used the 192.168.1.0/30 subnet, with .1 on Router-A and .2 on Router-B.</p>
-        <a href="DHCP%20(a).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-slide">
-        <h3>SSH Connection</h3>
-        <p>The goal of this at-home lab was to simulate SSH remote access similar to what’s used in data centers, enabling device management without relying on out-of-band ports. SSH was configured on Router-A and Switch-B, with VLAN 40 and an SVI set up on Switch-B for management. A trunk link and ROAS were implemented to support VLAN traffic, and ACLs were added to both devices to restrict access.</p>
-        <a href="SSH%20Connections%20(a).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>      
-       <div class="carousel-slide">
-        <h3>Simple OSPF Connection</h3>
-        <p>My objective in this at-home lab was to set up a simple network to have my (2) 2811 routers use OSPF to advertise their networks . I chose to use OSPF due to dynamic routing instead of setting up static routes. I started with an RFC 1918 address of 192.168.0.0/16 and did VLSM to simulate preserving as many addresses as possible.</p>
-        <a href="simple%20ospf%20communication%20(a).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-slide">
-        <h3>VLAN ROAS ACL</h3>
-        <p>The objective of this at-home lab was to simulate a cost-effective workplace network using a Catalyst 2960 switch and a Cisco 2811 router. I created four VLANs across the first 16 switch ports and used ROAS on the router for inter-VLAN routing. ACLs were configured to allow only the Management VLAN (192.168.192.0) full access, while others were restricted, and additional virtual PCs were added to mirror a real-world environment.</p>
-        <a href="VLAN%20ROAS%20ACL%20(a).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-buttons">
-        <button class="prev">← Prev</button>
-        <button class="next">Next →</button>
-      </div>
-    </div>
-  </section>
-  <!-- Cisco Packet Tracer -->
- <section id="cisco">
-    <h2>Cisco Packet Tracer</h2>
-    <div class="carousel-container" data-carousel>
-      <div class="carousel-slide active">
-        <h3>Mega OSPF Network</h3>
-        <p>The objective of this virtual lab was to simulate OSPF connectivity between two buildings, each with its own VLANs for devices like servers and printers. I used DHCP servers, ROAS with trunk links, and PAgP for redundancy and traffic optimization. ACLs were implemented to block Building-A from accessing printers in Building-B, ensuring only local access within Building-B.</p>
-        <a href="Mega%20OSPF%20(c).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-      <div class="carousel-slide">
-        <h3>Mega BGP Network</h3>
-        <p>The goal of this virtual lab was to gain hands-on experience with BGP, specifically iBGP, since eBGP isn’t supported in Packet Tracer. Alongside BGP, I implemented Inter-VLAN routing to reduce router traffic, and added DHCP, NTP, and SNMP servers to simulate real-world network services. Security measures, including usernames and passwords, were configured to enhance realism and reinforce best practices.</p>
-        <a href="BGP%20(c).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-      </div>
-       <div class="carousel-slide">
-        <h3>Wireless Network</h3>
-        <p>The goal of this virtual lab was to set up a wireless subnet within a network using Cisco Packet Tracer. Due to limitations, I configured one WLAN and four wired LANs, setting static routes on both the WLC and access point. DHCP was implemented to simulate real-world IP addressing.</p>
-        <a href="Wireless%20Network%20(c).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-       </div>
-      <div class="carousel-slide">
-        <h3>Tracert</h3>
-        <p>The goal of this virtual lab was to build a network topology that maps the path packets take from my personal computer to the Google DNS server. This helped visualize router-to-router traffic flow and identify potential points of failure. Creating the topology provided a clearer understanding of how data travels across the network without needing to see the physical layout.</p>
-        <a href="Tracert%20(c).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-       </div>
-        <div class="carousel-slide">
-        <h3>NTP Synchronization</h3>
-        <p>The objective of this virtual lab was to provide accurate time synchronization across the network. Consistent time is essential for correlating syslog entries and troubleshooting issues, especially when events occur across multiple devices. Without synchronized clocks, identifying the exact time of incidents becomes difficult and unreliable.</p>
-        <a href="NTP%20(c).pdf" target="_blank" class="pdf-link">View Project PDF</a>
-       </div>
-       <div class="carousel-buttons">
-        <button class="prev">← Prev</button>
-        <button class="next">Next →</button>
-      </div>
-    </div>
-  </section>
-  
   <script>
-    document.querySelectorAll('[data-carousel]').forEach(carousel => {
-      const slides = carousel.querySelectorAll('.carousel-slide');
-      const prevBtn = carousel.querySelector('.prev');
-      const nextBtn = carousel.querySelector('.next');
-      let currentIndex = 0;
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
-      function showSlide(i) {
-        slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    let currentSlide = 0;
+    const totalSlides = track.children.length;
+    const visibleSlides = 3;
+    const cardWidth = 320; // Approximate with margin
+
+    function updateCarousel() {
+      const offset = currentSlide * (cardWidth + 20);
+      track.style.transform = `translateX(-${offset}px)`;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateCarousel();
       }
-      prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        showSlide(currentIndex);
-      });
-      nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % slides.length;
-        showSlide(currentIndex);
-      });
     });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentSlide < totalSlides - visibleSlides) {
+        currentSlide++;
+        updateCarousel();
+      }
+    });
+
+    updateCarousel(); // initial
   </script>
+
 </body>
 </html>
