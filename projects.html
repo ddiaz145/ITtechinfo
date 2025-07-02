@@ -77,17 +77,19 @@
 
     .carousel-container {
       position: relative;
-      max-width: 1000px;
+      max-height: 960px; /* 3 cards × 320px */
+      overflow: hidden;
+      max-width: 600px;
       margin: 30px auto;
       background: rgba(0,0,0,0.4);
       border-radius: 8px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      overflow: hidden;
     }
 
     .carousel-track {
       display: flex;
+      flex-direction: column;
       transition: transform 0.5s ease;
     }
 
@@ -95,11 +97,10 @@
       background-color: rgba(255,255,255,0.1);
       border-radius: 10px;
       padding: 20px;
-      margin: 0 10px;
-      min-width: 300px;
-      max-width: 300px;
-      flex-shrink: 0;
+      margin: 10px 0;
+      height: 300px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      flex-shrink: 0;
     }
 
     .carousel-card h3 {
@@ -147,15 +148,9 @@
       background-color: #444;
     }
 
-    @media (max-width: 950px) {
-      .carousel-card {
-        min-width: 90%;
-        margin: 0 auto 20px;
-      }
-      .carousel-track {
-        flex-wrap: nowrap;
-        flex-direction: column;
-        align-items: center;
+    @media (max-width: 650px) {
+      .carousel-container {
+        max-width: 95%;
       }
     }
   </style>
@@ -190,10 +185,26 @@
           <p>Built a virtual environment using VirtualBox to simulate a Windows Server domain with user/group management, OU structure, and GPO configuration to reflect Help Desk duties.</p>
           <a href="AD-Lab.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
+        <div class="carousel-card">
+          <h3>Printer Troubleshooting Guide</h3>
+          <p>Compiled a guide for diagnosing common printing problems, including driver conflicts, queue issues, and network discovery settings.</p>
+          <a href="Printer-Troubleshooting.pdf" target="_blank" class="pdf-link">View PDF</a>
+        </div>
+        <div class="carousel-card">
+          <h3>Remote Support Documentation</h3>
+          <p>Created a step-by-step process for using tools like AnyDesk and RDP to provide remote assistance securely.</p>
+          <a href="Remote-Support.pdf" target="_blank" class="pdf-link">View PDF</a>
+        </div>
+        <div class="carousel-card">
+          <h3>Hardware Diagnostics</h3>
+          <p>Outlined diagnostic workflows for identifying hardware issues, including RAM, hard drive, and PSU testing procedures.</p>
+          <a href="Hardware-Diagnostics.pdf" target="_blank" class="pdf-link">View PDF</a>
+        </div>
       </div>
+
       <div class="carousel-buttons">
-        <button id="prevBtn">← Prev</button>
-        <button id="nextBtn">Next →</button>
+        <button id="prevBtn">↑ Up</button>
+        <button id="nextBtn">↓ Down</button>
       </div>
     </div>
   </section>
@@ -204,13 +215,15 @@
     const nextBtn = document.getElementById('nextBtn');
 
     let currentSlide = 0;
-    const totalSlides = track.children.length;
-    const visibleSlides = 3;
-    const cardWidth = 320; // Approximate with margin
+    const cardsPerGroup = 3;
+    const totalCards = track.children.length;
+    const totalGroups = Math.ceil(totalCards / cardsPerGroup);
+    const cardHeight = 320; // card height + margin
+    const groupHeight = cardHeight * cardsPerGroup;
 
     function updateCarousel() {
-      const offset = currentSlide * (cardWidth + 20);
-      track.style.transform = `translateX(-${offset}px)`;
+      const offset = currentSlide * groupHeight;
+      track.style.transform = `translateY(-${offset}px)`;
     }
 
     prevBtn.addEventListener('click', () => {
@@ -221,14 +234,15 @@
     });
 
     nextBtn.addEventListener('click', () => {
-      if (currentSlide < totalSlides - visibleSlides) {
+      if (currentSlide < totalGroups - 1) {
         currentSlide++;
         updateCarousel();
       }
     });
 
-    updateCarousel(); // initial
+    updateCarousel();
   </script>
 
 </body>
 </html>
+
