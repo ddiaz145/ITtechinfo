@@ -78,7 +78,7 @@
     .carousel-container {
       position: relative;
       width: 650px;
-      height: 1000px; /* 3 cards × 300px + 2 gaps × 30px + padding */
+      height: 340px;
       margin: 30px auto;
       overflow: hidden;
       background: rgba(0,0,0,0.4);
@@ -89,14 +89,16 @@
 
     .carousel-track {
       display: flex;
+      flex-direction: row;
       transition: transform 0.5s ease-in-out;
+      width: fit-content;
       height: 100%;
     }
 
     .carousel-slide {
       display: flex;
-      flex-direction: column;
-      gap: 30px; /* gap to avoid overlap */
+      flex-direction: row;
+      gap: 30px;
       flex-shrink: 0;
       width: 600px;
       height: 100%;
@@ -108,7 +110,7 @@
       background-color: rgba(255,255,255,0.1);
       border-radius: 10px;
       padding: 20px;
-      height: 300px;
+      width: 180px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       box-sizing: border-box;
       flex-shrink: 0;
@@ -117,11 +119,12 @@
     .carousel-card h3 {
       color: #00cc77;
       margin-top: 0;
+      font-size: 1.1em;
     }
 
     .carousel-card p {
-      font-size: 1em;
-      line-height: 1.6;
+      font-size: 0.9em;
+      line-height: 1.4;
       color: #e0f7f4;
     }
 
@@ -177,10 +180,14 @@
     @media (max-width: 700px) {
       .carousel-container {
         width: 95vw;
-        height: calc(3 * 300px + 2 * 30px + 40px);
+        height: auto;
       }
       .carousel-slide {
-        width: 90vw;
+        width: auto;
+        flex-direction: column;
+      }
+      .carousel-card {
+        width: 100%;
       }
     }
   </style>
@@ -200,7 +207,7 @@
     <h2>Help Desk Projects</h2>
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <!-- slides created by JS -->
+        <!-- Slides injected by JavaScript -->
       </div>
 
       <div class="carousel-buttons">
@@ -259,7 +266,7 @@
     const nextBtn = document.getElementById('nextBtn');
 
     const cardsPerSlide = 3;
-    const cardWidth = 600; // must match .carousel-slide width in CSS
+    const slideWidth = 650;
 
     function createSlides() {
       track.innerHTML = '';
@@ -277,6 +284,7 @@
           `;
           slide.appendChild(card);
         }
+
         track.appendChild(slide);
       }
     }
@@ -284,14 +292,13 @@
     let currentIndex = 0;
 
     function updateCarousel() {
-      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
-      const offset = currentIndex * cardWidth;
+      const offset = currentIndex * slideWidth;
       track.style.transform = `translateX(-${offset}px)`;
     }
 
     prevBtn.addEventListener('click', () => {
       const totalSlides = Math.ceil(projects.length / cardsPerSlide);
-      currentIndex = (currentIndex - 1) < 0 ? totalSlides - 1 : currentIndex - 1;
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
       updateCarousel();
     });
 
@@ -301,7 +308,6 @@
       updateCarousel();
     });
 
-    // Initialize carousel
     createSlides();
     updateCarousel();
   </script>
