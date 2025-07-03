@@ -2,47 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Help Desk Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David Diaz – Help Desk Projects</title>
   <style>
-    html { scroll-behavior: smooth; }
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0 0 200px 0;
       background: linear-gradient(135deg, #1f4037, #99f2c8);
       color: #f0f0f0;
       text-shadow: 0 0 3px rgba(0,0,0,0.7);
     }
 
-    .site-title {
-      margin: 0;
-      padding: 40px 0 20px;
+    header {
       text-align: center;
+      padding: 40px 20px 20px;
+      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+    }
+
+    h1 {
       font-size: 3em;
       font-weight: 900;
       color: #e0e0e0;
-      background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
 
     nav {
       background: rgba(15,32,39,0.95);
-      padding: 12px 0;
       text-align: center;
+      padding: 12px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
 
     nav a {
-      color: #99f2c8;
       margin: 0 25px;
+      color: #99f2c8;
+      font-weight: bold;
       text-decoration: none;
-      font-weight: 700;
       font-size: 18px;
-      transition: color 0.3s;
     }
 
     nav a:hover {
@@ -51,20 +54,19 @@
     }
 
     section {
-      text-align: center;
       padding: 50px 20px;
+      text-align: center;
     }
 
-    h2 {
+    section h2 {
       font-size: 2.4em;
       font-weight: 900;
       color: #a3f7bf;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-      margin-bottom: 20px;
       position: relative;
+      margin-bottom: 20px;
     }
 
-    h2::after {
+    section h2::after {
       content: "";
       display: block;
       width: 80px;
@@ -75,119 +77,93 @@
       box-shadow: 0 0 8px #00b386;
     }
 
-    .carousel-container {
-      position: relative;
-      width: 650px;
-      height: 340px;
-      margin: 30px auto;
+    /* Carousel */
+    .carousel-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
       overflow: hidden;
-      background: rgba(0,0,0,0.4);
-      border-radius: 8px;
-      padding: 20px 0;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      position: relative;
     }
 
     .carousel-track {
       display: flex;
-      flex-direction: row;
       transition: transform 0.5s ease-in-out;
-      width: fit-content;
-      height: 100%;
     }
 
     .carousel-slide {
       display: flex;
-      flex-direction: row;
-      gap: 30px;
+      gap: 20px;
       flex-shrink: 0;
-      width: 600px;
-      height: 100%;
-      box-sizing: border-box;
-      padding: 0 20px;
+      width: 100%;
+      padding: 10px;
+      justify-content: center;
     }
 
-    .carousel-card {
-      background-color: rgba(255,255,255,0.1);
+    .card {
+      background: rgba(255,255,255,0.1);
       border-radius: 10px;
       padding: 20px;
-      width: 180px;
+      width: 250px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      box-sizing: border-box;
       flex-shrink: 0;
     }
 
-    .carousel-card h3 {
+    .card h3 {
       color: #00cc77;
-      margin-top: 0;
-      font-size: 1.1em;
+      margin-bottom: 10px;
     }
 
-    .carousel-card p {
-      font-size: 0.9em;
+    .card p {
+      font-size: 0.95em;
       line-height: 1.4;
       color: #e0f7f4;
     }
 
-    .pdf-link {
+    .card a {
       display: inline-block;
       margin-top: 12px;
       color: #99f2c8;
       font-weight: bold;
       text-decoration: none;
-      transition: color 0.3s;
     }
 
-    .pdf-link:hover {
+    .card a:hover {
       color: #d1ffd6;
       text-decoration: underline;
     }
 
+    /* Buttons */
     .carousel-buttons {
       display: flex;
       justify-content: space-between;
-      max-width: 650px;
       margin: 20px auto 0;
+      max-width: 900px;
     }
 
     .carousel-buttons button {
-      background-color: #000;
+      background: #000;
       color: #fff;
       border: none;
       padding: 12px 36px;
-      cursor: pointer;
       border-radius: 4px;
       font-size: 18px;
       font-weight: bold;
-      transition: background-color 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      user-select: none;
-    }
-
-    .carousel-buttons button svg {
-      flex-shrink: 0;
-      stroke: #fff;
-      width: 24px;
-      height: 24px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
     .carousel-buttons button:hover {
-      background-color: #444;
+      background: #444;
     }
 
-    @media (max-width: 700px) {
-      .carousel-container {
-        width: 95vw;
-        height: auto;
-      }
+    @media (max-width: 768px) {
       .carousel-slide {
-        width: auto;
         flex-direction: column;
+        align-items: center;
       }
-      .carousel-card {
-        width: 100%;
+
+      .card {
+        width: 90%;
       }
     }
   </style>
@@ -195,7 +171,7 @@
 <body>
 
   <header>
-    <h1 class="site-title">David Diaz – Help Desk Projects</h1>
+    <h1>David Diaz – Help Desk Projects</h1>
   </header>
 
   <nav>
@@ -203,27 +179,18 @@
     <a href="projects.html">Projects</a>
   </nav>
 
-  <section id="helpdesk">
+  <section>
     <h2>Help Desk Projects</h2>
-    <div class="carousel-container">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- Slides injected by JavaScript -->
-      </div>
 
-      <div class="carousel-buttons">
-        <button id="prevBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Prev
-        </button>
-        <button id="nextBtn">
-          Next
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" stroke="currentColor">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Slides injected via JavaScript -->
       </div>
+    </div>
+
+    <div class="carousel-buttons">
+      <button id="prevBtn">Prev</button>
+      <button id="nextBtn">Next</button>
     </div>
   </section>
 
@@ -231,56 +198,54 @@
     const projects = [
       {
         title: "Ticketing System Mock-Up",
-        desc: "Created a simulated ticketing system workflow using Excel to mirror Help Desk operations. This included ticket categories, status updates, escalation procedures, and resolution timelines.",
+        desc: "Created a simulated ticketing workflow in Excel to mirror Help Desk operations like escalation, status updates, and resolution.",
         pdf: "Ticketing-System.pdf"
       },
       {
         title: "Windows User Account Troubleshooting",
-        desc: "Documented step-by-step resolution procedures for common Windows 10 user profile issues including temporary profiles, permission errors, and account recovery.",
+        desc: "Wrote step-by-step guides to resolve issues like temp profiles, permission errors, and login problems on Windows 10.",
         pdf: "Windows-Troubleshooting.pdf"
       },
       {
         title: "Active Directory Lab",
-        desc: "Built a virtual environment using VirtualBox to simulate a Windows Server domain with user/group management, OU structure, and GPO configuration to reflect Help Desk duties.",
+        desc: "Simulated a Windows Server environment with users, groups, OUs, and GPOs using VirtualBox and Server 2019.",
         pdf: "AD-Lab.pdf"
       },
       {
         title: "Printer Troubleshooting Guide",
-        desc: "Compiled a guide for diagnosing common printing problems, including driver conflicts, queue issues, and network discovery settings.",
+        desc: "Diagnosed common printer issues including driver errors, offline states, and network discovery failures.",
         pdf: "Printer-Troubleshooting.pdf"
       },
       {
         title: "Remote Support Documentation",
-        desc: "Created a step-by-step process for using tools like AnyDesk and RDP to provide remote assistance securely.",
+        desc: "Built a walkthrough for using AnyDesk and RDP tools to securely support remote users.",
         pdf: "Remote-Support.pdf"
       },
       {
         title: "Hardware Diagnostics",
-        desc: "Outlined diagnostic workflows for identifying hardware issues, including RAM, hard drive, and PSU testing procedures.",
+        desc: "Outlined basic hardware tests for RAM, HDD, PSU, and CPU when troubleshooting performance issues.",
         pdf: "Hardware-Diagnostics.pdf"
       }
     ];
 
-    const track = document.getElementById('carouselTrack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
+    const track = document.getElementById("carouselTrack");
     const cardsPerSlide = 3;
-    const slideWidth = 650;
+    let currentIndex = 0;
 
     function createSlides() {
-      track.innerHTML = '';
-      for (let i = 0; i < projects.length; i += cardsPerSlide) {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
+      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
 
-        for (let j = i; j < i + cardsPerSlide && j < projects.length; j++) {
-          const card = document.createElement('div');
-          card.className = 'carousel-card';
+      for (let i = 0; i < totalSlides; i++) {
+        const slide = document.createElement("div");
+        slide.className = "carousel-slide";
+
+        for (let j = i * cardsPerSlide; j < (i + 1) * cardsPerSlide && j < projects.length; j++) {
+          const card = document.createElement("div");
+          card.className = "card";
           card.innerHTML = `
             <h3>${projects[j].title}</h3>
             <p>${projects[j].desc}</p>
-            <a href="${projects[j].pdf}" target="_blank" class="pdf-link">View PDF</a>
+            <a href="${projects[j].pdf}" target="_blank">View PDF</a>
           `;
           slide.appendChild(card);
         }
@@ -289,29 +254,28 @@
       }
     }
 
-    let currentIndex = 0;
-
     function updateCarousel() {
-      const offset = currentIndex * slideWidth;
-      track.style.transform = `translateX(-${offset}px)`;
+      const slideWidth = document.querySelector(".carousel-wrapper").offsetWidth;
+      track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
     }
 
-    prevBtn.addEventListener('click', () => {
-      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      const totalSlides = track.children.length;
       currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
       updateCarousel();
     });
 
-    nextBtn.addEventListener('click', () => {
-      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      const totalSlides = track.children.length;
       currentIndex = (currentIndex + 1) % totalSlides;
       updateCarousel();
     });
 
+    // Initialize
     createSlides();
     updateCarousel();
-  </script>
 
+    window.addEventListener("resize", updateCarousel);
+  </script>
 </body>
 </html>
-
