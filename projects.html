@@ -77,9 +77,8 @@
 
     .carousel-container {
       position: relative;
-      max-height: 960px; /* 3 cards × 320px */
       overflow: hidden;
-      max-width: 600px;
+      max-width: 960px;
       margin: 30px auto;
       background: rgba(0,0,0,0.4);
       border-radius: 8px;
@@ -89,18 +88,19 @@
 
     .carousel-track {
       display: flex;
-      flex-direction: column;
-      transition: transform 0.5s ease;
+      transition: transform 0.5s ease-in-out;
+      will-change: transform;
     }
 
     .carousel-card {
       background-color: rgba(255,255,255,0.1);
       border-radius: 10px;
       padding: 20px;
-      margin: 10px 0;
-      height: 300px;
+      margin: 0 10px;
+      width: calc((100% - 60px) / 3); /* 3 cards per view */
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       flex-shrink: 0;
+      box-sizing: border-box;
     }
 
     .carousel-card h3 {
@@ -129,28 +129,41 @@
     }
 
     .carousel-buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      transform: translateY(-50%);
+      pointer-events: none;
     }
 
     .carousel-buttons button {
-      background-color: #000;
+      background-color: rgba(0,0,0,0.7);
       color: #fff;
       border: none;
-      padding: 8px 16px;
+      padding: 12px;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 50%;
+      font-size: 18px;
+      pointer-events: auto;
       transition: background-color 0.3s;
     }
 
     .carousel-buttons button:hover {
-      background-color: #444;
+      background-color: #333;
     }
 
-    @media (max-width: 650px) {
-      .carousel-container {
-        max-width: 95%;
+    @media (max-width: 800px) {
+      .carousel-card {
+        width: calc((100% - 40px) / 2); /* 2 cards on tablets */
+      }
+    }
+
+    @media (max-width: 500px) {
+      .carousel-card {
+        width: 100%;
+        margin: 0;
       }
     }
   </style>
@@ -172,39 +185,39 @@
       <div class="carousel-track" id="carouselTrack">
         <div class="carousel-card">
           <h3>Ticketing System Mock-Up</h3>
-          <p>Created a simulated ticketing system workflow using Excel to mirror Help Desk operations. This included ticket categories, status updates, escalation procedures, and resolution timelines.</p>
+          <p>Created a simulated ticketing system workflow using Excel to mirror Help Desk operations...</p>
           <a href="Ticketing-System.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
         <div class="carousel-card">
           <h3>Windows User Account Troubleshooting</h3>
-          <p>Documented step-by-step resolution procedures for common Windows 10 user profile issues including temporary profiles, permission errors, and account recovery.</p>
+          <p>Documented resolution procedures for common Windows 10 user profile issues...</p>
           <a href="Windows-Troubleshooting.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
         <div class="carousel-card">
           <h3>Active Directory Lab</h3>
-          <p>Built a virtual environment using VirtualBox to simulate a Windows Server domain with user/group management, OU structure, and GPO configuration to reflect Help Desk duties.</p>
+          <p>Built a virtual environment to simulate a Windows Server domain...</p>
           <a href="AD-Lab.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
         <div class="carousel-card">
           <h3>Printer Troubleshooting Guide</h3>
-          <p>Compiled a guide for diagnosing common printing problems, including driver conflicts, queue issues, and network discovery settings.</p>
+          <p>Compiled a guide for diagnosing common printing problems...</p>
           <a href="Printer-Troubleshooting.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
         <div class="carousel-card">
           <h3>Remote Support Documentation</h3>
-          <p>Created a step-by-step process for using tools like AnyDesk and RDP to provide remote assistance securely.</p>
+          <p>Created a step-by-step process for using tools like AnyDesk and RDP...</p>
           <a href="Remote-Support.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
         <div class="carousel-card">
           <h3>Hardware Diagnostics</h3>
-          <p>Outlined diagnostic workflows for identifying hardware issues, including RAM, hard drive, and PSU testing procedures.</p>
+          <p>Outlined diagnostic workflows for identifying hardware issues...</p>
           <a href="Hardware-Diagnostics.pdf" target="_blank" class="pdf-link">View PDF</a>
         </div>
       </div>
 
       <div class="carousel-buttons">
-        <button id="prevBtn">↑ Up</button>
-        <button id="nextBtn">↓ Down</button>
+        <button id="prevBtn">←</button>
+        <button id="nextBtn">→</button>
       </div>
     </div>
   </section>
@@ -214,32 +227,42 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    let currentSlide = 0;
-    const cardsPerGroup = 3;
-    const totalCards = track.children.length;
-    const totalGroups = Math.ceil(totalCards / cardsPerGroup);
-    const cardHeight = 320; // card height + margin
-    const groupHeight = cardHeight * cardsPerGroup;
+    let currentIndex = 0;
 
-    function updateCarousel() {
-      const offset = currentSlide * groupHeight;
-      track.style.transform = `translateY(-${offset}px)`;
+    function getCardWidth() {
+      const card = track.querySelector('.carousel-card');
+      const style = getComputedStyle(card);
+      const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+      return card.offsetWidth + margin;
     }
 
-    prevBtn.addEventListener('click', () => {
-      if (currentSlide > 0) {
-        currentSlide--;
-        updateCarousel();
-      }
-    });
+    function getVisibleCards() {
+      const containerWidth = document.querySelector('.carousel-container').offsetWidth;
+      return Math.floor(containerWidth / getCardWidth());
+    }
+
+    function updateCarousel() {
+      const offset = currentIndex * getCardWidth();
+      track.style.transform = `translateX(-${offset}px)`;
+    }
 
     nextBtn.addEventListener('click', () => {
-      if (currentSlide < totalGroups - 1) {
-        currentSlide++;
-        updateCarousel();
-      }
+      const visible = getVisibleCards();
+      const maxIndex = Math.ceil(track.children.length / visible) - 1;
+
+      currentIndex = (currentIndex + 1) > maxIndex ? 0 : currentIndex + 1;
+      updateCarousel();
     });
 
+    prevBtn.addEventListener('click', () => {
+      const visible = getVisibleCards();
+      const maxIndex = Math.ceil(track.children.length / visible) - 1;
+
+      currentIndex = (currentIndex - 1) < 0 ? maxIndex : currentIndex - 1;
+      updateCarousel();
+    });
+
+    window.addEventListener('resize', updateCarousel);
     updateCarousel();
   </script>
 
