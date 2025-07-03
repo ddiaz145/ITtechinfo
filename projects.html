@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>David Diaz – Help Desk Projects</title>
   <style>
-    /* Base Styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -29,6 +28,7 @@
       font-size: 3em;
       font-weight: 900;
       color: #e0e0e0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 8px #00cc77;
     }
 
     nav {
@@ -62,7 +62,7 @@
       font-size: 2.4em;
       font-weight: 900;
       color: #a3f7bf;
-      position: relative;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7), 0 0 8px #00cc77;
       margin-bottom: 20px;
     }
 
@@ -77,7 +77,6 @@
       box-shadow: 0 0 8px #00b386;
     }
 
-    /* Carousel */
     .carousel-wrapper {
       max-width: 900px;
       margin: 0 auto;
@@ -111,6 +110,7 @@
     .card h3 {
       color: #00cc77;
       margin-bottom: 10px;
+      text-shadow: 0 0 8px #00cc77;
     }
 
     .card p {
@@ -125,6 +125,7 @@
       color: #99f2c8;
       font-weight: bold;
       text-decoration: none;
+      text-shadow: 0 0 6px #00cc77;
     }
 
     .card a:hover {
@@ -132,7 +133,6 @@
       text-decoration: underline;
     }
 
-    /* Buttons */
     .carousel-buttons {
       display: flex;
       justify-content: space-between;
@@ -150,6 +150,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
+      text-shadow: 0 0 6px #00cc77;
     }
 
     .carousel-buttons button:hover {
@@ -271,10 +272,8 @@
       updateCarousel();
     });
 
-    // Initialize
     createSlides();
     updateCarousel();
-
     window.addEventListener("resize", updateCarousel);
   </script>
 </body>
