@@ -77,29 +77,39 @@
 
     .carousel-container {
       position: relative;
-      overflow: hidden;
-      max-width: 960px;
+      width: 650px; /* width of one column of 3 cards */
+      height: 1000px; /* 3 cards × 320px + margins */
       margin: 30px auto;
+      overflow: hidden;
       background: rgba(0,0,0,0.4);
       border-radius: 8px;
-      padding: 20px;
+      padding: 20px 0;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
-      will-change: transform;
+      height: 100%;
+    }
+
+    .carousel-slide {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex-shrink: 0;
+      width: 600px; /* card width + padding/margin */
+      height: 100%; /* full height of container */
+      box-sizing: border-box;
+      padding: 0 20px;
     }
 
     .carousel-card {
       background-color: rgba(255,255,255,0.1);
       border-radius: 10px;
       padding: 20px;
-      margin: 0 10px;
-      width: calc((100% - 60px) / 3); /* 3 cards per view */
+      height: 300px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      flex-shrink: 0;
       box-sizing: border-box;
     }
 
@@ -129,41 +139,34 @@
     }
 
     .carousel-buttons {
-      position: absolute;
-      top: 50%;
-      width: 100%;
       display: flex;
       justify-content: space-between;
-      transform: translateY(-50%);
-      pointer-events: none;
+      max-width: 650px;
+      margin: 20px auto 0;
     }
 
     .carousel-buttons button {
-      background-color: rgba(0,0,0,0.7);
+      background-color: #000;
       color: #fff;
       border: none;
-      padding: 12px;
+      padding: 12px 24px;
       cursor: pointer;
-      border-radius: 50%;
+      border-radius: 4px;
       font-size: 18px;
-      pointer-events: auto;
       transition: background-color 0.3s;
     }
 
     .carousel-buttons button:hover {
-      background-color: #333;
+      background-color: #444;
     }
 
-    @media (max-width: 800px) {
-      .carousel-card {
-        width: calc((100% - 40px) / 2); /* 2 cards on tablets */
+    @media (max-width: 700px) {
+      .carousel-container {
+        width: 95vw;
+        height: calc(3 * 300px + 60px);
       }
-    }
-
-    @media (max-width: 500px) {
-      .carousel-card {
-        width: 100%;
-        margin: 0;
+      .carousel-slide {
+        width: 90vw;
       }
     }
   </style>
@@ -183,87 +186,102 @@
     <h2>Help Desk Projects</h2>
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-card">
-          <h3>Ticketing System Mock-Up</h3>
-          <p>Created a simulated ticketing system workflow using Excel to mirror Help Desk operations...</p>
-          <a href="Ticketing-System.pdf" target="_blank" class="pdf-link">View PDF</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Windows User Account Troubleshooting</h3>
-          <p>Documented resolution procedures for common Windows 10 user profile issues...</p>
-          <a href="Windows-Troubleshooting.pdf" target="_blank" class="pdf-link">View PDF</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Active Directory Lab</h3>
-          <p>Built a virtual environment to simulate a Windows Server domain...</p>
-          <a href="AD-Lab.pdf" target="_blank" class="pdf-link">View PDF</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Printer Troubleshooting Guide</h3>
-          <p>Compiled a guide for diagnosing common printing problems...</p>
-          <a href="Printer-Troubleshooting.pdf" target="_blank" class="pdf-link">View PDF</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Remote Support Documentation</h3>
-          <p>Created a step-by-step process for using tools like AnyDesk and RDP...</p>
-          <a href="Remote-Support.pdf" target="_blank" class="pdf-link">View PDF</a>
-        </div>
-        <div class="carousel-card">
-          <h3>Hardware Diagnostics</h3>
-          <p>Outlined diagnostic workflows for identifying hardware issues...</p>
-          <a href="Hardware-Diagnostics.pdf" target="_blank" class="pdf-link">View PDF</a>
-        </div>
+        <!-- slides will be generated here by JS -->
       </div>
 
       <div class="carousel-buttons">
-        <button id="prevBtn">←</button>
-        <button id="nextBtn">→</button>
+        <button id="prevBtn">← Prev</button>
+        <button id="nextBtn">Next →</button>
       </div>
     </div>
   </section>
 
   <script>
+    const projects = [
+      {
+        title: "Ticketing System Mock-Up",
+        desc: "Created a simulated ticketing system workflow using Excel to mirror Help Desk operations. This included ticket categories, status updates, escalation procedures, and resolution timelines.",
+        pdf: "Ticketing-System.pdf"
+      },
+      {
+        title: "Windows User Account Troubleshooting",
+        desc: "Documented step-by-step resolution procedures for common Windows 10 user profile issues including temporary profiles, permission errors, and account recovery.",
+        pdf: "Windows-Troubleshooting.pdf"
+      },
+      {
+        title: "Active Directory Lab",
+        desc: "Built a virtual environment using VirtualBox to simulate a Windows Server domain with user/group management, OU structure, and GPO configuration to reflect Help Desk duties.",
+        pdf: "AD-Lab.pdf"
+      },
+      {
+        title: "Printer Troubleshooting Guide",
+        desc: "Compiled a guide for diagnosing common printing problems, including driver conflicts, queue issues, and network discovery settings.",
+        pdf: "Printer-Troubleshooting.pdf"
+      },
+      {
+        title: "Remote Support Documentation",
+        desc: "Created a step-by-step process for using tools like AnyDesk and RDP to provide remote assistance securely.",
+        pdf: "Remote-Support.pdf"
+      },
+      {
+        title: "Hardware Diagnostics",
+        desc: "Outlined diagnostic workflows for identifying hardware issues, including RAM, hard drive, and PSU testing procedures.",
+        pdf: "Hardware-Diagnostics.pdf"
+      }
+    ];
+
     const track = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
+    const cardsPerSlide = 3;
+    const cardWidth = 600; // matches CSS width of slide
+
+    // Group cards into slides of 3 cards each
+    function createSlides() {
+      track.innerHTML = '';
+      for (let i = 0; i < projects.length; i += cardsPerSlide) {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+
+        for (let j = i; j < i + cardsPerSlide && j < projects.length; j++) {
+          const card = document.createElement('div');
+          card.className = 'carousel-card';
+          card.innerHTML = `
+            <h3>${projects[j].title}</h3>
+            <p>${projects[j].desc}</p>
+            <a href="${projects[j].pdf}" target="_blank" class="pdf-link">View PDF</a>
+          `;
+          slide.appendChild(card);
+        }
+        track.appendChild(slide);
+      }
+    }
+
     let currentIndex = 0;
 
-    function getCardWidth() {
-      const card = track.querySelector('.carousel-card');
-      const style = getComputedStyle(card);
-      const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-      return card.offsetWidth + margin;
-    }
-
-    function getVisibleCards() {
-      const containerWidth = document.querySelector('.carousel-container').offsetWidth;
-      return Math.floor(containerWidth / getCardWidth());
-    }
-
     function updateCarousel() {
-      const offset = currentIndex * getCardWidth();
+      const offset = currentIndex * cardWidth;
       track.style.transform = `translateX(-${offset}px)`;
     }
 
-    nextBtn.addEventListener('click', () => {
-      const visible = getVisibleCards();
-      const maxIndex = Math.ceil(track.children.length / visible) - 1;
-
-      currentIndex = (currentIndex + 1) > maxIndex ? 0 : currentIndex + 1;
-      updateCarousel();
-    });
-
     prevBtn.addEventListener('click', () => {
-      const visible = getVisibleCards();
-      const maxIndex = Math.ceil(track.children.length / visible) - 1;
-
-      currentIndex = (currentIndex - 1) < 0 ? maxIndex : currentIndex - 1;
+      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
+      currentIndex = (currentIndex - 1) < 0 ? totalSlides - 1 : currentIndex - 1;
       updateCarousel();
     });
+
+    nextBtn.addEventListener('click', () => {
+      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
+      currentIndex = (currentIndex + 1) >= totalSlides ? 0 : currentIndex + 1;
+      updateCarousel();
+    });
+
+    // Initialize
+    createSlides();
+    updateCarousel();
 
     window.addEventListener('resize', updateCarousel);
-    updateCarousel();
   </script>
 
 </body>
