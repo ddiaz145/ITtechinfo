@@ -82,7 +82,7 @@
       max-width: 900px;
       margin: 0 auto;
       overflow: hidden;
-      position: relative;
+      position: relative; /* for absolute buttons */
     }
 
     .carousel-track {
@@ -135,15 +135,17 @@
       text-decoration: underline;
     }
 
-    /* Buttons */
+    /* Carousel buttons vertically centered */
     .carousel-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px auto 0;
-      max-width: 900px;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      pointer-events: none; /* only buttons clickable */
     }
 
     .carousel-buttons button {
+      pointer-events: auto;
+      position: absolute;
       background: #000;
       color: #fff;
       border: none;
@@ -153,10 +155,19 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
+      transform: translateY(-50%);
     }
 
     .carousel-buttons button:hover {
       background: #444;
+    }
+
+    #prevBtn {
+      left: 0;
+    }
+
+    #nextBtn {
+      right: 0;
     }
 
     @media (max-width: 768px) {
@@ -184,11 +195,10 @@
       <div class="carousel-track" id="carouselTrack">
         <!-- Slides injected via JavaScript -->
       </div>
-    </div>
-
-    <div class="carousel-buttons">
-      <button id="prevBtn">Prev</button>
-      <button id="nextBtn">Next</button>
+      <div class="carousel-buttons">
+        <button id="prevBtn">Prev</button>
+        <button id="nextBtn">Next</button>
+      </div>
     </div>
   </section>
 
