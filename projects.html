@@ -61,19 +61,13 @@
       font-size: 2.4em;
       font-weight: 900;
       color: #a3f7bf;
-      position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
-    section h2::after {
-      content: "";
-      display: block;
-      width: 80px;
-      height: 4px;
-      background: #00b386;
-      margin: 10px auto 0;
-      border-radius: 2px;
-      box-shadow: 0 0 8px #00b386;
+    section h3 {
+      font-size: 1.6em;
+      color: #ffffff;
+      margin-bottom: 20px;
     }
 
     .carousel-wrapper {
@@ -192,7 +186,8 @@
   <section>
     <h2>Help Desk Projects</h2>
 
-    <!-- Carousel 1 -->
+    <!-- Completed Projects -->
+    <h3>Completed Projects</h3>
     <div class="carousel-wrapper">
       <div class="carousel-track" id="carouselTrack1"></div>
       <div class="carousel-buttons">
@@ -201,7 +196,8 @@
       </div>
     </div>
 
-    <!-- Carousel 2 -->
+    <!-- Upcoming Projects -->
+    <h3>Upcoming Projects</h3>
     <div class="carousel-wrapper">
       <div class="carousel-track" id="carouselTrack2"></div>
       <div class="carousel-buttons">
@@ -209,19 +205,18 @@
         <button class="next" id="nextBtn2">Next</button>
       </div>
     </div>
-
   </section>
 
   <script>
-    const projects = [
+    const firstCarouselProjects = [
       {
         title: "Active Directory Startup",
-        desc: "The goal is to create an Active Directory environment in VirtualBox with one domain controller and two Windows PCs joined to the domain. RSAT will be installed on both PCs for remote management.",
+        desc: "Created an AD environment with one domain controller and two Windows PCs joined to the domain. RSAT installed for remote management.",
         pdf: "Active%20Directory%20Startup.pdf"
       },
       {
         title: "On-Boarding A New Member",
-        desc: "Used Active Directory to onboard a new team member into the Sales department. Tasks included creating an account, email setup, and verifying access.",
+        desc: "Used Active Directory to onboard a new team member into Sales. Included account creation, Outlook setup, and access verification.",
         pdf: "On-Boarding%20A%20New%20Member.pdf"
       },
       {
@@ -231,12 +226,12 @@
       },
       {
         title: "Folder Permissions",
-        desc: "Created Sales and Engineering folders with proper NTFS permissions to restrict access to authorized users only.",
+        desc: "Created Sales and Engineering folders with NTFS permissions to control department-level access securely.",
         pdf: "Folder%20Permissions.pdf"
       },
       {
         title: "Remote Desktop Protocol Configuration",
-        desc: "Applied GPO to enable RDP on all domain PCs. Verified RDP functionality using Group Policy settings.",
+        desc: "Used Group Policy in AD to enable RDP on domain-joined PCs. Verified RDP functionality after deployment.",
         pdf: "RDP.pdf"
       },
       {
@@ -246,8 +241,29 @@
       }
     ];
 
-    const firstCarouselProjects = projects.slice(0, 3);
-    const secondCarouselProjects = projects.slice(3);
+    const secondCarouselProjects = [
+      {
+        title: "Placeholder Project 1",
+        desc: "This is a placeholder for a future project. Description and link coming soon.",
+        pdf: "#"
+      },
+      {
+        title: "Placeholder Project 2",
+        desc: "Details about this upcoming project will be available in the near future.",
+        pdf: "#"
+      },
+      {
+        title: "Placeholder Project 3",
+        desc: "Reserved for a new project in progress. More info will be added shortly.",
+        pdf: "#"
+      },
+      {
+        title: "Placeholder Project 4",
+        desc: "Coming soon: A hands-on task to expand help desk and networking experience.",
+        pdf: "#"
+      }
+    ];
+
     const cardsPerSlide = 2;
 
     function createSlides(trackId, projectList) {
@@ -298,7 +314,6 @@
       updateCarousel();
     }
 
-    // Initialize both carousels
     createSlides("carouselTrack1", firstCarouselProjects);
     createSlides("carouselTrack2", secondCarouselProjects);
     setupCarousel("carouselTrack1", "prevBtn1", "nextBtn1");
