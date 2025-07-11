@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>David Diaz – Help Desk Projects</title>
   <style>
-    /* Base Styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -77,12 +76,11 @@
       box-shadow: 0 0 8px #00b386;
     }
 
-    /* Carousel */
     .carousel-wrapper {
       max-width: 900px;
-      margin: 0 auto;
+      margin: 0 auto 60px;
       overflow: hidden;
-      position: relative; /* for absolute buttons */
+      position: relative;
     }
 
     .carousel-track {
@@ -92,12 +90,11 @@
 
     .carousel-slide {
       display: flex;
-      flex-direction: column;
       gap: 25px;
       flex-shrink: 0;
       width: 100%;
       padding: 10px;
-      align-items: center;
+      justify-content: center;
     }
 
     .card {
@@ -135,12 +132,11 @@
       text-decoration: underline;
     }
 
-    /* Carousel buttons vertically centered */
     .carousel-buttons {
       position: absolute;
       top: 50%;
       width: 100%;
-      pointer-events: none; /* only buttons clickable */
+      pointer-events: none;
     }
 
     .carousel-buttons button {
@@ -162,17 +158,22 @@
       background: #444;
     }
 
-    #prevBtn {
+    .carousel-buttons .prev {
       left: 0;
     }
 
-    #nextBtn {
+    .carousel-buttons .next {
       right: 0;
     }
 
     @media (max-width: 768px) {
       .card {
         width: 95%;
+      }
+
+      .carousel-slide {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -191,42 +192,51 @@
   <section>
     <h2>Help Desk Projects</h2>
 
+    <!-- Carousel 1 -->
     <div class="carousel-wrapper">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- Slides injected via JavaScript -->
-      </div>
+      <div class="carousel-track" id="carouselTrack1"></div>
       <div class="carousel-buttons">
-        <button id="prevBtn">Prev</button>
-        <button id="nextBtn">Next</button>
+        <button class="prev" id="prevBtn1">Prev</button>
+        <button class="next" id="nextBtn1">Next</button>
       </div>
     </div>
+
+    <!-- Carousel 2 -->
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack2"></div>
+      <div class="carousel-buttons">
+        <button class="prev" id="prevBtn2">Prev</button>
+        <button class="next" id="nextBtn2">Next</button>
+      </div>
+    </div>
+
   </section>
 
   <script>
     const projects = [
       {
         title: "Active Directory Startup",
-        desc: "The goal is to create an Active Directory environment in VirtualBox with one domain controller and two Windows PCs joined to the domain. RSAT will be installed on both PCs for remote management, ensuring Active Directory can be managed even without direct server access.",
+        desc: "The goal is to create an Active Directory environment in VirtualBox with one domain controller and two Windows PCs joined to the domain. RSAT will be installed on both PCs for remote management.",
         pdf: "Active%20Directory%20Startup.pdf"
       },
       {
         title: "On-Boarding A New Member",
-        desc: "In this lab simulation, I used Active Directory to onboard a new team member into the Sales department. The process included creating a new user account, setting up an outlook email address, editing job description, and verifying access to the account.",
+        desc: "Used Active Directory to onboard a new team member into the Sales department. Tasks included creating an account, email setup, and verifying access.",
         pdf: "On-Boarding%20A%20New%20Member.pdf"
       },
       {
         title: "Real World Ticket Account/Password Reset",
-        desc: "In this lab simulation, I resolved a ticket for a user locked out of their Active Directory account due to multiple failed login attempts. I unlocked the account, reset the password to a temporary one, and verified successful login with a required password change at next logon.",
+        desc: "Resolved a ticket for a locked-out user. Unlocked the account, reset password, and ensured login success with required password update.",
         pdf: "Real%20World%20Tickets%20Account_Password%20Reset.pdf"
       },
       {
         title: "Folder Permissions",
-        desc: " In this lab simulation, I created department-specific folders for Sales and Engineering and configured appropriate NTFS permissions to control access. The goal was to ensure that only authorized users from each department could access their respective folders while maintaining data security and separation between teams.",
+        desc: "Created Sales and Engineering folders with proper NTFS permissions to restrict access to authorized users only.",
         pdf: "Folder%20Permissions.pdf"
       },
       {
         title: "Remote Desktop Protocol Configuration",
-        desc: " In this lab simulation, I created and applied a Group Policy Object (GPO) in Active Directory to enable Remote Desktop Protocol (RDP) on all domain-joined PCs. The objective was to ensure remote access capabilities by configuring the necessary RDP settings through Group Policy and verifying successful configuration across all systems.",
+        desc: "Applied GPO to enable RDP on all domain PCs. Verified RDP functionality using Group Policy settings.",
         pdf: "RDP.pdf"
       },
       {
@@ -236,24 +246,25 @@
       }
     ];
 
-    const track = document.getElementById("carouselTrack");
-    const cardsPerSlide = 3;
-    let currentIndex = 0;
+    const firstCarouselProjects = projects.slice(0, 3);
+    const secondCarouselProjects = projects.slice(3);
+    const cardsPerSlide = 2;
 
-    function createSlides() {
-      const totalSlides = Math.ceil(projects.length / cardsPerSlide);
+    function createSlides(trackId, projectList) {
+      const track = document.getElementById(trackId);
+      const totalSlides = Math.ceil(projectList.length / cardsPerSlide);
 
       for (let i = 0; i < totalSlides; i++) {
         const slide = document.createElement("div");
         slide.className = "carousel-slide";
 
-        for (let j = i * cardsPerSlide; j < (i + 1) * cardsPerSlide && j < projects.length; j++) {
+        for (let j = i * cardsPerSlide; j < (i + 1) * cardsPerSlide && j < projectList.length; j++) {
           const card = document.createElement("div");
           card.className = "card";
           card.innerHTML = `
-            <h3>${projects[j].title}</h3>
-            <p>${projects[j].desc}</p>
-            <a href="${projects[j].pdf}" target="_blank">View PDF</a>
+            <h3>${projectList[j].title}</h3>
+            <p>${projectList[j].desc}</p>
+            <a href="${projectList[j].pdf}" target="_blank">View PDF</a>
           `;
           slide.appendChild(card);
         }
@@ -262,28 +273,36 @@
       }
     }
 
-    function updateCarousel() {
-      const slideWidth = document.querySelector(".carousel-wrapper").offsetWidth;
-      track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    function setupCarousel(trackId, prevBtnId, nextBtnId) {
+      let index = 0;
+      const track = document.getElementById(trackId);
+      const totalSlides = track.children.length;
+
+      function updateCarousel() {
+        const wrapper = track.parentElement;
+        const slideWidth = wrapper.offsetWidth;
+        track.style.transform = `translateX(-${index * slideWidth}px)`;
+      }
+
+      document.getElementById(prevBtnId).addEventListener("click", () => {
+        index = (index - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+      });
+
+      document.getElementById(nextBtnId).addEventListener("click", () => {
+        index = (index + 1) % totalSlides;
+        updateCarousel();
+      });
+
+      window.addEventListener("resize", updateCarousel);
+      updateCarousel();
     }
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      const totalSlides = track.children.length;
-      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-      updateCarousel();
-    });
-
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      const totalSlides = track.children.length;
-      currentIndex = (currentIndex + 1) % totalSlides;
-      updateCarousel();
-    });
-
-    // Initialize
-    createSlides();
-    updateCarousel();
-
-    window.addEventListener("resize", updateCarousel);
+    // Initialize both carousels
+    createSlides("carouselTrack1", firstCarouselProjects);
+    createSlides("carouselTrack2", secondCarouselProjects);
+    setupCarousel("carouselTrack1", "prevBtn1", "nextBtn1");
+    setupCarousel("carouselTrack2", "prevBtn2", "nextBtn2");
   </script>
 </body>
 </html>
